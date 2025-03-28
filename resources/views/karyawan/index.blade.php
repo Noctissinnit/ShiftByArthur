@@ -1,48 +1,44 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto p-6">
-    <h2 class="text-2xl font-bold mb-4">Kelola Karyawan</h2>
-
-    <!-- Tombol Tambah Karyawan -->
-    <div class="mb-4">
-        <a href="{{ route('karyawan.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+<div class="container mx-auto max-w-5xl mt-10 p-6 bg-white rounded-lg shadow-md">
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold text-gray-800">Kelola Karyawan</h2>
+        <a href="{{ route('karyawan.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition">
             Tambah Karyawan
         </a>
     </div>
 
-    <!-- Tabel Karyawan -->
-    <div class="bg-white shadow-md rounded-lg p-4">
-        <table class="w-full border-collapse">
+    <div class="overflow-x-auto">
+        <table class="w-full table-auto border-collapse border border-gray-300">
             <thead>
-                <tr class="bg-gray-100">
-                    <th class="border p-2">#</th>
-                    <th class="border p-2">Nama</th>
-                    <th class="border p-2">Email</th>
-                    <th class="border p-2">Role</th>
-                    <th class="border p-2">Aksi</th>
+                <tr class="bg-gray-100 border-b border-gray-300 text-left">
+                    <th class="px-6 py-3">#</th>
+                    <th class="px-6 py-3">Nama</th>
+                    <th class="px-6 py-3">Email</th>
+                    <th class="px-6 py-3">Role</th>
+                    <th class="px-6 py-3">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($karyawan as $key => $user)
-                <tr class="border">
-                    <td class="border p-2">{{ $key + 1 }}</td>
-                    <td class="border p-2">{{ $user->name }}</td>
-                    <td class="border p-2">{{ $user->email }}</td>
-                    <td class="border p-2">
+                <tr class="border-b border-gray-300">
+                    <td class="px-6 py-3">{{ $key + 1 }}</td>
+                    <td class="px-6 py-3">{{ $user->name }}</td>
+                    <td class="px-6 py-3">{{ $user->email }}</td>
+                    <td class="px-6 py-3">
                         @foreach ($user->roles as $role)
                             <span class="bg-green-500 text-white px-2 py-1 rounded text-sm">{{ $role->name }}</span>
                         @endforeach
                     </td>
-                    <td class="border p-2">
-                        <a href="{{ route('karyawan.edit', $user->id) }}" class="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600">
+                    <td class="px-6 py-3 flex gap-2">
+                        <a href="{{ route('karyawan.edit', $user->id) }}" class="bg-yellow-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-yellow-600 transition text-sm">
                             Edit
                         </a>
-                        <form action="{{ route('karyawan.destroy', $user->id) }}" method="POST" class="inline-block">
+                        <form action="{{ route('karyawan.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" onclick="return confirm('Yakin ingin menghapus?')" 
-                                class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">
+                            <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-red-600 transition text-sm">
                                 Hapus
                             </button>
                         </form>

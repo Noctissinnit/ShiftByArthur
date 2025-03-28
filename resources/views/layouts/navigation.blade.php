@@ -9,9 +9,7 @@
 
         <!-- Navigation Links -->
         <div class="hidden space-x-8 sm:flex">
-            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-nav-link>
+            
 
             @role('admin')
                 <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
@@ -37,14 +35,14 @@
 
         <!-- User Profile Dropdown -->
         <div class="relative">
-            <button id="dropdownButton" class="flex items-center px-3 py-2 border rounded-md text-gray-500 hover:bg-gray-100 focus:outline-none">
+            <button id="dropdownButton" class="flex items-center px-3 py-2 border rounded-md text-gray-500 hover:bg-gray-100 focus:outline-none transition">
                 <span>{{ Auth::user()->name }}</span>
-                <svg class="w-4 h-4 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <svg class="w-4 h-4 ml-2 transition-transform transform" id="dropdownIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
                 </svg>
             </button>
 
-            <div id="dropdownMenu" class="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-md hidden">
+            <div id="dropdownMenu" class="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-md hidden overflow-hidden transition-opacity opacity-0">
                 <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Profile</a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
@@ -61,14 +59,18 @@
     document.addEventListener("DOMContentLoaded", function() {
         const button = document.getElementById("dropdownButton");
         const menu = document.getElementById("dropdownMenu");
+        const icon = document.getElementById("dropdownIcon");
 
         button.addEventListener("click", function() {
             menu.classList.toggle("hidden");
+            menu.classList.toggle("opacity-0");
+            icon.classList.toggle("rotate-180"); // Animasi panah
         });
 
         document.addEventListener("click", function(event) {
             if (!button.contains(event.target) && !menu.contains(event.target)) {
-                menu.classList.add("hidden");
+                menu.classList.add("hidden", "opacity-0");
+                icon.classList.remove("rotate-180");
             }
         });
     });
