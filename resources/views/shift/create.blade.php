@@ -19,13 +19,15 @@
             <input type="date" name="tanggal" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700 font-medium mb-2">Waktu Mulai</label>
-            <input type="time" name="waktu_mulai" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            <label class="block text-gray-700 font-medium mb-2">Shift</label>
+            <select name="shift" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                <option value="">Pilih Shift</option>
+                <option value="pagi">Pagi (08:00 - 16:00)</option>
+                <option value="siang">Siang (16:00 - 00:00)</option>
+                <option value="malam">Malam (00:00 - 08:00)</option>
+            </select>
         </div>
-        <div class="mb-4">
-            <label class="block text-gray-700 font-medium mb-2">Waktu Selesai</label>
-            <input type="time" name="waktu_selesai" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-        </div>
+        
         <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition">Simpan Shift</button>
     </form>
 </div>

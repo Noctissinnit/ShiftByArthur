@@ -24,9 +24,9 @@
                 </div>
 
                 {{-- Konten utama --}}
-                {{-- <div class="mt-6 bg-white shadow-md rounded-lg px-6 py-4">
+                <div class="mt-6 bg-white shadow-md rounded-lg px-6 py-4">
                     {{ $slot }}
-                </div> --}}
+                </div>
             </div>
         </div>
     </body>

@@ -27,10 +27,15 @@
                     <td class="px-6 py-3">{{ $user->name }}</td>
                     <td class="px-6 py-3">{{ $user->email }}</td>
                     <td class="px-6 py-3">
-                        @foreach ($user->roles as $role)
-                            <span class="bg-green-500 text-white px-2 py-1 rounded text-sm">{{ $role->name }}</span>
-                        @endforeach
+                        @if ($user->roles->isNotEmpty())
+                            @foreach ($user->roles as $role)
+                                <span class="bg-green-500 text-white px-2 py-1 rounded text-sm">{{ $role->name }}</span>
+                            @endforeach
+                        @else
+                            <span class="bg-gray-400 text-white px-2 py-1 rounded text-sm">Tidak ada role</span>
+                        @endif
                     </td>
+                    
                     <td class="px-6 py-3 flex gap-2">
                         <a href="{{ route('karyawan.edit', $user->id) }}" class="bg-yellow-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-yellow-600 transition text-sm">
                             Edit

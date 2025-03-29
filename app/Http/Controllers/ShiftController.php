@@ -18,18 +18,30 @@ class ShiftController extends Controller
         return view('shift.create', compact('karyawans'));
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $request->validate([
             'karyawan_id' => 'required|exists:karyawans,id',
             'tanggal' => 'required|date',
-            'waktu_mulai' => 'required',
-            'waktu_selesai' => 'required|after:waktu_mulai',
+            'shift' => 'required|in:pagi,siang,malam',
         ]);
-
-        Shift::create($request->all());
-
+    
+        $shifts = [
+            'pagi' => ['08:00', '16:00'],
+            'siang' => ['16:00', '00:00'],
+            'malam' => ['00:00', '08:00'],
+        ];
+    
+        Shift::create([
+            'karyawan_id' => $request->karyawan_id,
+            'tanggal' => $request->tanggal,
+            'waktu_mulai' => $shifts[$request->shift][0],
+            'waktu_selesai' => $shifts[$request->shift][1],
+        ]);
+    
         return redirect()->route('shift.index')->with('success', 'Shift berhasil ditambahkan.');
     }
+    
 
     public function updateStatus(Request $request, Shift $shift) {
         $request->validate([
